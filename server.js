@@ -7,7 +7,8 @@ const app = express();
 const PORT = 4000;
 
 // ✅ Configure CORS to allow requests from your frontend
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: ["http://localhost:3000", "https://marvelous-pegasus-9a0d3d.netlify.app"] }));
+
 
 // ✅ Serve static models
 app.use("/models", express.static(path.join(__dirname, "models")));
