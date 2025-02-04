@@ -6,19 +6,19 @@ const path = require("path");
 const app = express();
 const PORT = 4000;
 
-// ✅ Configure CORS to allow requests from your frontend
 app.use(cors({ origin: ["http://localhost:3000", "https://marvelous-pegasus-9a0d3d.netlify.app"] }));
 
-
-// ✅ Serve static models
+// ✅ Serve models
 app.use("/models", express.static(path.join(__dirname, "models")));
 
+// ✅ API to list all `.glb` and `.usdz` models
 app.get("/models", (req, res) => {
   fs.readdir(path.join(__dirname, "models"), (err, files) => {
     if (err) {
       res.status(500).json({ error: "Error reading model directory" });
     } else {
-      res.json(files.filter(file => file.endsWith(".glb")));
+      const models = files.filter(file => file.endsWith(".glb") || file.endsWith(".usdz"));
+      res.json(models);
     }
   });
 });
